@@ -15,21 +15,21 @@ import {
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import MainLayout from "../layout/mainLayout";
 
 const { chains, provider } = configureChains(
+	[sepolia],
+	// https://eth-goerli.g.alchemy.com/v2/U4Q5B-2_p_WUMX2gBCL_ZYNpaRetbTgd
 	[
-		mainnet,
-		goerli,
-		polygon,
-		polygonMumbai,
-		optimism,
-		optimismGoerli,
-		arbitrum,
-		arbitrumGoerli,
-	],
-	// [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
-);
+	  jsonRpcProvider({
+		rpc: (chain) => ({
+		  http: `https://eth-sepolia.g.alchemy.com/v2/57FdUR7-uJBlEowYnrUIn6yR_eIA4deP`,
+		  WebSocket: `wss://eth-sepolia.g.alchemy.com/v2/57FdUR7-uJBlEowYnrUIn6yR_eIA4deP`,
+		}),
+	  }),
+	]
+  );	// [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
 
 const { connectors } = getDefaultWallets({
 	appName: "My Alchemy DApp",
